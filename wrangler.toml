@@ -15,13 +15,16 @@ directory = "./public"
 [[d1_databases]]
 binding = "DB"
 database_name = "aswhani-db"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "f9afa9c5-b861-4339-9c4c-a894940a5dd8"
 
-# --- R2 bucket for product image uploads ---
-# Create it with `wrangler r2 bucket create aswhani-images`.
-[[r2_buckets]]
-binding = "BUCKET"
-bucket_name = "aswhani-images"
+# --- R2 bucket for product image uploads (admin panel) ---
+# Site images are served from ./public/images (static), so R2 is OPTIONAL and only
+# needed if you want to UPLOAD product photos from the admin panel.
+# To enable: turn on R2 once at dash.cloudflare.com → R2 → (free), then
+# `wrangler r2 bucket create aswhani-images`, and uncomment the block below + redeploy.
+# [[r2_buckets]]
+# binding = "BUCKET"
+# bucket_name = "aswhani-images"
 
 # Non-secret default vars. Secrets (passwords, Razorpay) go in .dev.vars (local)
 # and `wrangler secret put NAME` (production).
