@@ -1,0 +1,29 @@
+name = "aswhani"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# --- Static assets (local site images live in ./public) ---
+# Files in ./public are served straight from Cloudflare's edge. Anything under
+# /images/... (hero, category & product photos) is a static file; every other
+# path falls through to the Hono Worker below. Drop real photos into
+# ./public/images/ using the names in public/images/README.md and they go live.
+[assets]
+directory = "./public"
+
+# --- D1 database (SQLite, persistent — never pauses/wipes like Supabase free) ---
+# After `wrangler d1 create aswhani-db`, paste the returned database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "aswhani-db"
+database_id = "00000000-0000-0000-0000-000000000000"
+
+# --- R2 bucket for product image uploads ---
+# Create it with `wrangler r2 bucket create aswhani-images`.
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "aswhani-images"
+
+# Non-secret default vars. Secrets (passwords, Razorpay) go in .dev.vars (local)
+# and `wrangler secret put NAME` (production).
+[vars]
+STORE_NAME = "Aswhani"
